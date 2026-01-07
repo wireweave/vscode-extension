@@ -1,0 +1,147 @@
+{
+  "name": "wireweave-vscode",
+  "displayName": "Wireweave",
+  "description": "Text-based wireframe DSL - preview and edit wireframes as code",
+  "version": "1.0.0",
+  "publisher": "wireweave",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization"
+  ],
+  "keywords": [
+    "wireframe",
+    "mockup",
+    "ui",
+    "prototype",
+    "design"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./styles/wireframe-preview.css"
+    ],
+    "languages": [
+      {
+        "id": "wireframe",
+        "aliases": [
+          "Wireframe",
+          "wireframe"
+        ],
+        "extensions": [
+          ".wf",
+          ".wireframe"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wireframe",
+        "scopeName": "source.wireframe",
+        "path": "./syntaxes/wireframe.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "wireframe.preview",
+        "title": "Wireframe: Open Preview",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "wireframe.previewToSide",
+        "title": "Wireframe: Open Preview to Side",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "wireframe.exportSvg",
+        "title": "Wireframe: Export as SVG"
+      },
+      {
+        "command": "wireframe.exportHtml",
+        "title": "Wireframe: Export as HTML"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "wireframe.previewToSide",
+          "when": "resourceLangId == wireframe",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "wireframe.preview",
+          "when": "resourceLangId == wireframe"
+        },
+        {
+          "command": "wireframe.previewToSide",
+          "when": "resourceLangId == wireframe"
+        },
+        {
+          "command": "wireframe.exportSvg",
+          "when": "resourceLangId == wireframe"
+        },
+        {
+          "command": "wireframe.exportHtml",
+          "when": "resourceLangId == wireframe"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "wireframe.previewToSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "resourceLangId == wireframe"
+      }
+    ],
+    "configuration": {
+      "title": "Wireframe Lang",
+      "properties": {
+        "wireframe.theme": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "auto",
+            "light",
+            "dark"
+          ],
+          "description": "Theme for the preview"
+        },
+        "wireframe.autoPreview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically open preview when opening a wireframe file"
+        },
+        "wireframe.previewWidth": {
+          "type": "number",
+          "default": 1200,
+          "description": "Base width for the wireframe preview (in pixels). Preview will scale down uniformly to fit."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "package": "vsce package --no-dependencies",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@wireweave/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.7.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
