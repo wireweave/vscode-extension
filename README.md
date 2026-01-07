@@ -1,6 +1,10 @@
-# Wireframe Lang for VS Code
+<p align="center">
+  <img src="logo.svg" width="128" height="128" alt="Wireweave VS Code">
+</p>
 
-Visual Studio Code extension for wireweave DSL with syntax highlighting and live preview.
+<h1 align="center">Wireframe Lang for VS Code</h1>
+
+<p align="center">Visual Studio Code extension for Wireweave DSL with syntax highlighting and live preview</p>
 
 ## Features
 
