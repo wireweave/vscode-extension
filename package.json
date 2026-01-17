@@ -2,7 +2,7 @@
   "name": "wireweave-vscode",
   "displayName": "Wireweave",
   "description": "Text-based wireframe DSL - preview and edit wireframes as code",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "wireweave",
   "license": "MIT",
   "icon": "icon.png",
