@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@wireweave/core':
-        specifier: ^1.4.0-beta.0
-        version: 1.4.0-beta.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@wireweave/language-data':
         specifier: ^1.0.2
         version: 1.0.2
@@ -551,8 +551,8 @@ packages:
     engines: {node: '>= 20'}
     hasBin: true
 
-  '@wireweave/core@1.4.0-beta.0':
-    resolution: {integrity: sha512-lvEZ7beNgjs15n0oQNQpILk0SN/LLMVHPit4wahk/5rzV9qivedvenoabXwmVPZgD+rHpAoq9PUB/IUctl1Wbg==}
+  '@wireweave/core@1.4.1':
+    resolution: {integrity: sha512-NkLJCga5/6lZr/GZR8Fi0ByUEiv5OC5gM9FXqsHuOsDukMA+Vk14SQ2GrcfPa8CFMfReS/ayXfkHWwoUuTmQgw==}
 
   '@wireweave/language-data@1.0.2':
     resolution: {integrity: sha512-QPg9uqgq/vYHHYmICBOCkNGVYySKATV88bj/k0Gdvp+lWDRO5cVTMWeYZ87dzlQRXSASxIne8/W7nXcP+EXIgg==}
@@ -2171,7 +2171,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wireweave/core@1.4.0-beta.0': {}
+  '@wireweave/core@1.4.1': {}
 
   '@wireweave/language-data@1.0.2': {}
 
