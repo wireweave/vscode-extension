@@ -68,10 +68,6 @@
         "icon": "$(open-preview)"
       },
       {
-        "command": "wireframe.exportSvg",
-        "title": "Wireframe: Export as SVG"
-      },
-      {
         "command": "wireframe.exportHtml",
         "title": "Wireframe: Export as HTML"
       }
@@ -91,10 +87,6 @@
         },
         {
           "command": "wireframe.previewToSide",
-          "when": "resourceLangId == wireframe"
-        },
-        {
-          "command": "wireframe.exportSvg",
           "when": "resourceLangId == wireframe"
         },
         {
@@ -144,7 +136,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@wireweave/core": "^1.4.0",
+    "@wireweave/core": "^1.4.1",
     "@wireweave/language-data": "^1.0.2"
   },
   "devDependencies": {

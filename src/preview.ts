@@ -5,7 +5,7 @@
  */
 
 import * as vscode from 'vscode';
-import { parse, render, renderToSvg, renderToHtml, resolveViewport } from '@wireweave/core';
+import { parse, render, renderToHtml, resolveViewport } from '@wireweave/core';
 import type { WireframeDocument } from '@wireweave/core';
 
 /**
@@ -87,23 +87,14 @@ export class WireframePreviewPanel {
   }
 
   /**
-   * Export document to SVG or HTML
+   * Export document to HTML
    */
-  public static async export(
-    document: vscode.TextDocument,
-    format: 'svg' | 'html'
-  ): Promise<string> {
+  public static async export(document: vscode.TextDocument): Promise<string> {
     const source = document.getText();
 
     try {
       const ast = parse(source);
-
-      if (format === 'svg') {
-        const result = renderToSvg(ast);
-        return result.svg;
-      } else {
-        return renderToHtml(ast);
-      }
+      return renderToHtml(ast);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
       throw new Error(`Parse error: ${message}`);

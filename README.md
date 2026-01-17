@@ -27,7 +27,7 @@
 - **Syntax Highlighting** - Full syntax highlighting for `.wf` and `.wireframe` files
 - **Live Preview** - Real-time preview as you type
 - **Markdown Integration** - Embed wireframes in Markdown with ` ```wireframe ` code blocks
-- **Export Options** - Export wireframes as SVG or HTML
+- **Export Options** - Export wireframes as HTML
 - **Theme Support** - Auto-detects VS Code theme (light/dark)
 
 ## Installation
@@ -75,7 +75,6 @@ page "Login" {
 
 ### 3. Export (optional)
 
-- `Wireweave: Export as SVG`
 - `Wireweave: Export as HTML`
 
 ## Markdown Preview
@@ -104,7 +103,6 @@ Open Markdown preview (`Cmd+Shift+V`) to see the rendered wireframe.
 |---------|------------|-------------|
 | `Wireweave: Open Preview` | - | Open preview in current panel |
 | `Wireweave: Open Preview to Side` | `Cmd+K V` | Open preview in split view |
-| `Wireweave: Export as SVG` | - | Export to SVG file |
 | `Wireweave: Export as HTML` | - | Export to HTML file |
 
 ## Settings

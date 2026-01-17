@@ -11,14 +11,13 @@ All notable changes to the Wireweave VS Code extension will be documented in thi
 - Theme-aware outline border for preview panel
 - Transparent background support for preview
 - Markdown integration with `wireframe` code blocks
-- Export to SVG and HTML
+- Export to HTML
 - Auto-completion for components and attributes
 - Hover documentation
 
 ### Commands
 - `Wireweave: Open Preview` - Open preview in current panel
 - `Wireweave: Open Preview to Side` - Open preview in split view
-- `Wireweave: Export as SVG` - Export wireframe as SVG
 - `Wireweave: Export as HTML` - Export wireframe as HTML
 
 ### Settings

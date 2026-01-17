@@ -139,12 +139,8 @@ export function activate(context: vscode.ExtensionContext) {
       WireframePreviewPanel.createOrShow(context.extensionUri, 'side');
     }),
 
-    vscode.commands.registerCommand('wireframe.exportSvg', () => {
-      exportToFile('svg');
-    }),
-
     vscode.commands.registerCommand('wireframe.exportHtml', () => {
-      exportToFile('html');
+      exportToFile();
     })
   );
 
@@ -226,9 +222,9 @@ interface MarkdownIt {
 }
 
 /**
- * Export the current wireframe to a file
+ * Export the current wireframe to HTML file
  */
-async function exportToFile(format: 'svg' | 'html') {
+async function exportToFile() {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor || editor.document.languageId !== 'wireframe') {
@@ -239,13 +235,13 @@ async function exportToFile(format: 'svg' | 'html') {
   // Get default file name
   const currentFileName = editor.document.fileName;
   const baseName = currentFileName.replace(/\.(wf|wireframe)$/, '');
-  const defaultFileName = `${baseName}.${format}`;
+  const defaultFileName = `${baseName}.html`;
 
   // Show save dialog
   const uri = await vscode.window.showSaveDialog({
     defaultUri: vscode.Uri.file(defaultFileName),
     filters: {
-      [format.toUpperCase()]: [format],
+      HTML: ['html'],
     },
   });
 
@@ -254,7 +250,7 @@ async function exportToFile(format: 'svg' | 'html') {
   }
 
   try {
-    const content = await WireframePreviewPanel.export(editor.document, format);
+    const content = await WireframePreviewPanel.export(editor.document);
     await vscode.workspace.fs.writeFile(uri, Buffer.from(content, 'utf8'));
     vscode.window.showInformationMessage(`Exported to ${uri.fsPath}`);
   } catch (error: unknown) {
