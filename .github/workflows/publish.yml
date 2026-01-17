@@ -31,4 +31,9 @@ jobs:
       - name: Publish to VS Code Marketplace
         run: pnpm dlx @vscode/vsce publish --no-dependencies
         env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          VSCE_PAT: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+
+      - name: Publish to Open VSX
+        run: pnpm dlx ovsx publish --no-dependencies
+        env:
+          OVSX_PAT: ${{ secrets.OPEN_VSX_TOKEN }}
