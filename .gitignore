@@ -26,3 +26,4 @@ yarn.lock
 # Test output
 coverage/
 .nyc_output/
+CLAUDE.md
