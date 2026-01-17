@@ -3,8 +3,17 @@
   "displayName": "Wireweave",
   "description": "Text-based wireframe DSL - preview and edit wireframes as code",
   "version": "1.0.0",
-  "publisher": "seungwoo321",
+  "publisher": "wireweave",
+  "license": "MIT",
   "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wireweave/vscode-extension"
+  },
+  "homepage": "https://wireweave.org",
+  "bugs": {
+    "url": "https://github.com/wireweave/vscode-extension/issues"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -135,8 +144,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@wireweave/core": "1.1.0-beta.0",
-    "@wireweave/language-data": "1.0.2-beta.0"
+    "@wireweave/core": "^1.4.0-beta.2",
+    "@wireweave/language-data": "^1.0.2"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",

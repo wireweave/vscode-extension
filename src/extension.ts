@@ -31,18 +31,25 @@ function escapeHtml(text: string): string {
 function renderWireframeToHtml(code: string): string {
   try {
     const doc = parse(code);
-    const { html, css } = render(doc, { theme: 'light', includeStyles: true });
+    const { html, css } = render(doc, { theme: 'light', includeStyles: true, background: 'transparent' });
 
     // Generate unique ID for CSS scoping
     const scopeId = `wf-${Math.random().toString(36).substring(2, 9)}`;
 
     // Get viewport from first page
-    const firstPage = doc.children[0];
-    const viewport = resolveViewport(firstPage?.viewport, firstPage?.device);
+    const firstPage = doc.children[0] as { width?: number; height?: number; viewport?: string; device?: string };
+    let baseWidth: number;
+    let baseHeight: number;
 
-    // Use viewport dimensions
-    const baseWidth = viewport.width;
-    const baseHeight = viewport.height;
+    // Check direct width/height attributes first, then viewport/device
+    if (firstPage?.width && firstPage?.height) {
+      baseWidth = firstPage.width;
+      baseHeight = firstPage.height;
+    } else {
+      const viewport = resolveViewport(firstPage?.viewport, firstPage?.device);
+      baseWidth = viewport.width;
+      baseHeight = viewport.height;
+    }
 
     // Scale settings for container sizing
     const maxScale = baseWidth > 800 ? 0.5 : 0.8;

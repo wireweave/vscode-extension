@@ -1,50 +1,54 @@
 <p align="center">
-  <img src="logo.svg" width="128" height="128" alt="Wireweave VS Code">
+  <img src="icon.png" width="128" height="128" alt="Wireweave">
 </p>
 
-<h1 align="center">Wireframe Lang for VS Code</h1>
+<h1 align="center">Wireweave for VS Code</h1>
 
-<p align="center">Visual Studio Code extension for Wireweave DSL with syntax highlighting and live preview</p>
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=wireweave.wireweave-vscode">
+    <img src="https://img.shields.io/visual-studio-marketplace/v/wireweave.wireweave-vscode" alt="Version">
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=wireweave.wireweave-vscode">
+    <img src="https://img.shields.io/visual-studio-marketplace/i/wireweave.wireweave-vscode" alt="Installs">
+  </a>
+  <a href="https://github.com/wireweave/vscode-extension/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/wireweave/vscode-extension" alt="License">
+  </a>
+</p>
+
+<p align="center">
+  Syntax highlighting and live preview for <a href="https://wireweave.org">Wireweave</a> - a text-based wireframe DSL for AI-assisted design.
+</p>
+
+---
 
 ## Features
 
-- **Syntax Highlighting**: Full syntax highlighting for `.wf` and `.wireframe` files
-- **Live Preview**: Real-time preview as you type (Cmd/Ctrl+K V)
-- **Markdown Preview**: Embed wireframes in Markdown files with `\`\`\`wireframe` code blocks
-- **Export Options**: Export wireframes as SVG or HTML
-- **Theme Support**: Auto-detects VS Code theme (light/dark)
-- **Scale Mode**: Fixed layout with uniform scaling to fit preview width
-- **Error Highlighting**: Instant feedback on syntax errors
+- **Syntax Highlighting** - Full syntax highlighting for `.wf` and `.wireframe` files
+- **Live Preview** - Real-time preview as you type
+- **Markdown Integration** - Embed wireframes in Markdown with ` ```wireframe ` code blocks
+- **Export Options** - Export wireframes as SVG or HTML
+- **Theme Support** - Auto-detects VS Code theme (light/dark)
 
 ## Installation
 
-### From VSIX (Local Development)
+### From VS Code Marketplace
 
-1. Build the extension:
-   ```bash
-   cd packages/vscode-extension
-   pnpm build
-   pnpm package
-   ```
+1. Open **Extensions** sidebar (`Cmd+Shift+X` / `Ctrl+Shift+X`)
+2. Search for **"Wireweave"**
+3. Click **Install**
 
-2. Install in VS Code:
-   - Open VS Code
-   - Press `Cmd/Ctrl+Shift+P`
-   - Type "Install from VSIX"
-   - Select the generated `.vsix` file
+Or install via command line:
 
-### Development Mode (F5)
+```bash
+code --install-extension wireweave.wireweave-vscode
+```
 
-1. Open the `packages/vscode-extension` folder in VS Code
-2. Press `F5` to launch Extension Development Host
-3. A new VS Code window will open with the extension loaded
-4. Create or open a `.wf` file to test
+## Quick Start
 
-## Usage
+### 1. Create a wireframe file
 
-### Creating a Wireframe
-
-Create a file with `.wf` or `.wireframe` extension:
+Create a new file with `.wf` extension:
 
 ```wireframe
 page "Login" {
@@ -63,204 +67,70 @@ page "Login" {
 }
 ```
 
-### Opening Preview
+### 2. Open the preview
 
-- **Keyboard**: `Cmd+K V` (Mac) or `Ctrl+K V` (Windows/Linux)
-- **Command Palette**: `Wireframe: Open Preview to Side`
-- **Editor Title**: Click the preview icon in the editor title bar
+- **Keyboard**: `Cmd+K V` (Mac) / `Ctrl+K V` (Windows/Linux)
+- **Command Palette**: `Wireweave: Open Preview to Side`
+- **Editor Title**: Click the preview icon
 
-### Exporting
+### 3. Export (optional)
 
-- **SVG Export**: Command Palette > `Wireframe: Export as SVG`
-- **HTML Export**: Command Palette > `Wireframe: Export as HTML`
+- `Wireweave: Export as SVG`
+- `Wireweave: Export as HTML`
 
-### Markdown Preview
+## Markdown Preview
 
-Embed wireframes directly in Markdown files using fenced code blocks:
+Embed wireframes in your Markdown documentation:
 
 ````markdown
-# My Documentation
-
-Here's a login form wireframe:
+# Login Page Design
 
 ```wireframe
 page {
   card p=4 {
     title "Login"
     input "Email" type=email
-    input "Password" type=password
     button "Sign In" primary
   }
 }
 ```
 ````
 
-Open the Markdown preview (`Cmd+Shift+V` or `Ctrl+Shift+V`) to see the rendered wireframe.
-
-You can also use `wf` as a short alias:
-
-````markdown
-```wf
-page { button "Click me" primary }
-```
-````
+Open Markdown preview (`Cmd+Shift+V`) to see the rendered wireframe.
 
 ## Commands
 
 | Command | Keybinding | Description |
 |---------|------------|-------------|
-| `Wireframe: Open Preview` | - | Open preview in current panel |
-| `Wireframe: Open Preview to Side` | `Cmd+K V` | Open preview in split view |
-| `Wireframe: Export as SVG` | - | Export current wireframe to SVG |
-| `Wireframe: Export as HTML` | - | Export current wireframe to HTML |
+| `Wireweave: Open Preview` | - | Open preview in current panel |
+| `Wireweave: Open Preview to Side` | `Cmd+K V` | Open preview in split view |
+| `Wireweave: Export as SVG` | - | Export to SVG file |
+| `Wireweave: Export as HTML` | - | Export to HTML file |
 
 ## Settings
 
-Configure in VS Code Settings (`Cmd/Ctrl+,`):
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `wireframe.theme` | `auto` | Preview theme (`auto`, `light`, `dark`) |
+| `wireframe.autoPreview` | `false` | Auto-open preview when opening wireframe files |
+| `wireframe.previewWidth` | `1200` | Base width for preview (in pixels) |
 
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| `wireframe.theme` | `'auto' \| 'light' \| 'dark'` | `'auto'` | Preview theme |
-| `wireframe.autoPreview` | `boolean` | `false` | Auto-open preview on file open |
-| `wireframe.previewWidth` | `number` | `1200` | Base width for wireframe preview (px) |
+## Supported File Extensions
 
-### Example settings.json
+- `.wf` (recommended)
+- `.wireframe`
 
-```json
-{
-  "wireframe.theme": "auto",
-  "wireframe.autoPreview": true,
-  "wireframe.previewWidth": 1440
-}
-```
+## Learn More
 
-### Scale Mode
+- [Wireweave Documentation](https://docs.wireweave.org)
+- [DSL Reference](https://docs.wireweave.org/reference)
+- [Examples](https://github.com/wireweave/examples)
 
-The preview uses **fixed layout with scale mode**:
+## Feedback & Issues
 
-- Wireframes are rendered at the configured `previewWidth`
-- The preview scales down uniformly to fit the panel
-- No responsive breakpoints - layout stays consistent at all sizes
-- For different device sizes, create separate wireframe files (e.g., `dashboard-mobile.wf`, `dashboard-tablet.wf`)
-
-## Syntax Highlighting
-
-The extension provides syntax highlighting for:
-
-- **Keywords**: `page`, `header`, `main`, `footer`, `sidebar`, `row`, `col`, `card`, etc.
-- **Components**: `button`, `input`, `text`, `title`, `image`, `table`, etc.
-- **Attributes**: `p`, `m`, `span`, `gap`, `justify`, `align`, etc.
-- **Values**: Strings, numbers, booleans
-- **Comments**: Single-line (`//`) and multi-line (`/* */`)
-
-## Supported DSL Elements
-
-### Layout
-
-```wireframe
-page "Title" {
-  header { }
-  sidebar { }
-  main { }
-  footer { }
-}
-```
-
-### Grid System
-
-```wireframe
-row gap=4 {
-  col span=6 { }
-  col span=6 { }
-}
-```
-
-### Components
-
-```wireframe
-// Text
-title "Heading" level=2
-text "Paragraph" muted
-
-// Form
-input "Label" type=email required
-button "Submit" primary
-checkbox "Remember me"
-select "Option" ["A", "B", "C"]
-
-// Feedback
-alert "Message" variant=success
-badge "New" variant=primary
-progress value=75
-
-// Data
-table {
-  columns ["Name", "Email"]
-  row ["John", "john@example.com"]
-}
-```
-
-## Troubleshooting
-
-### Preview not updating
-
-1. Check for syntax errors in the Problems panel
-2. Try closing and reopening the preview
-3. Reload the VS Code window (`Cmd/Ctrl+Shift+P` > "Reload Window")
-
-### Extension not activating
-
-1. Ensure the file has `.wf` or `.wireframe` extension
-2. Check VS Code's Output panel for errors
-3. Try reinstalling the extension
-
-### Export not working
-
-1. Ensure the file is saved
-2. Check if the output directory is writable
-3. Look for error messages in the notification area
-
-## Development
-
-### Prerequisites
-
-- Node.js >= 20
-- pnpm >= 9
-
-### Building
-
-```bash
-# Install dependencies
-pnpm install
-
-# Build
-pnpm build
-
-# Watch mode
-pnpm watch
-
-# Package VSIX
-pnpm package
-```
-
-### Project Structure
-
-```
-packages/vscode-extension/
-├── src/
-│   ├── extension.ts         # Main extension entry
-│   ├── preview.ts           # Live preview panel
-│   ├── language.ts          # Language features
-│   └── markdown-plugin.ts   # Markdown preview plugin
-├── styles/
-│   └── wireframe-preview.css  # Markdown preview styles
-├── syntaxes/
-│   └── wireframe.tmLanguage.json  # TextMate grammar
-├── language-configuration.json    # Language config
-├── package.json          # Extension manifest
-└── tsup.config.ts        # Build config
-```
+- [GitHub Issues](https://github.com/wireweave/vscode-extension/issues)
+- [Feature Requests](https://github.com/wireweave/vscode-extension/discussions)
 
 ## License
 
-MIT
+[MIT](LICENSE)
