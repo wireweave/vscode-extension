@@ -57,8 +57,8 @@ page "Login" {
       col span=4 {
         card p=6 {
           title "Sign In" level=2
-          input "Email" type=email required
-          input "Password" type=password required
+          input "Email" inputType=email required
+          input "Password" inputType=password required
           button "Sign In" primary
         }
       }
@@ -88,7 +88,7 @@ Embed wireframes in your Markdown documentation:
 page {
   card p=4 {
     title "Login"
-    input "Email" type=email
+    input "Email" inputType=email
     button "Sign In" primary
   }
 }
