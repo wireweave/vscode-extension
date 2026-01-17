@@ -2,7 +2,13 @@
 
 All notable changes to the Wireweave VS Code extension will be documented in this file.
 
-## [1.0.0] - 2025-01-17
+## [1.0.1] - 2026-01-17
+
+### Fixed
+- Fix broken links in README (examples, discussions removed)
+- Add Documentation and Playground links
+
+## [1.0.0] - 2026-01-17
 
 ### Added
 - Syntax highlighting for `.wf` and `.wireframe` files
