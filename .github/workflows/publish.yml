@@ -29,6 +29,7 @@ jobs:
         run: pnpm build
 
       - name: Publish to VS Code Marketplace
+        continue-on-error: true
         run: pnpm dlx @vscode/vsce publish --no-dependencies
         env:
           VSCE_PAT: ${{ secrets.VS_MARKETPLACE_TOKEN }}
