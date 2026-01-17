@@ -5,7 +5,7 @@
  */
 
 import * as vscode from 'vscode';
-import { parse, render, renderToSvg, renderToHtml, resolveViewport } from '@wireweave/core';
+import { parse, render, renderToHtml, resolveViewport } from '@wireweave/core';
 import type { WireframeDocument } from '@wireweave/core';
 
 /**
@@ -87,23 +87,14 @@ export class WireframePreviewPanel {
   }
 
   /**
-   * Export document to SVG or HTML
+   * Export document to HTML
    */
-  public static async export(
-    document: vscode.TextDocument,
-    format: 'svg' | 'html'
-  ): Promise<string> {
+  public static async export(document: vscode.TextDocument): Promise<string> {
     const source = document.getText();
 
     try {
       const ast = parse(source);
-
-      if (format === 'svg') {
-        const result = renderToSvg(ast);
-        return result.svg;
-      } else {
-        return renderToHtml(ast);
-      }
+      return renderToHtml(ast);
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
       throw new Error(`Parse error: ${message}`);
@@ -126,6 +117,7 @@ export class WireframePreviewPanel {
       const { html, css } = render(ast, {
         theme: this.getTheme(),
         includeStyles: true,
+        background: 'transparent',
       });
 
       this.panel.webview.html = this.getWebviewContent(html, css, ast);
@@ -160,31 +152,45 @@ export class WireframePreviewPanel {
 
   /**
    * Generate the webview HTML content
-   * Uses fixed scale mode - wireframe maintains exact aspect ratio
+   * Uses SVG viewBox for automatic responsive scaling (same approach as markdown preview)
    */
   private getWebviewContent(html: string, css: string, ast?: WireframeDocument): string {
     const isDark = this.getTheme() === 'dark';
-    const bgColor = isDark ? '#1e1e1e' : '#ffffff';
-    const textColor = isDark ? '#d4d4d4' : '#000000';
+    // Border color: white for dark theme, black for light theme
+    const borderColor = isDark ? '#ffffff' : '#000000';
+    const outlineWidth = 1;
 
     // Get viewport from first page, or use config setting as fallback
     let baseWidth = this.getPreviewWidth();
     let baseHeight = Math.round(baseWidth * 0.75); // Default 4:3 aspect ratio
 
     if (ast && ast.children.length > 0) {
-      const firstPage = ast.children[0];
-      if (firstPage.viewport !== undefined || firstPage.device !== undefined) {
-        const viewport = resolveViewport(firstPage.viewport, firstPage.device);
+      const firstPage = ast.children[0] as { width?: number; height?: number; viewport?: string; device?: string };
+      // Check direct width/height attributes first, then viewport/device
+      if (firstPage?.width && firstPage?.height) {
+        baseWidth = firstPage.width;
+        baseHeight = firstPage.height;
+      } else {
+        const viewport = resolveViewport(firstPage?.viewport, firstPage?.device);
         baseWidth = viewport.width;
         baseHeight = viewport.height;
       }
     }
 
-    // Scale settings - viewport aspect ratio is preserved
-    // Fixed scale: 0.5 for desktop (>800px), 0.8 for mobile
-    const fixedScale = baseWidth > 800 ? 0.5 : 0.8;
-    const scaledWidth = Math.round(baseWidth * fixedScale);
-    const scaledHeight = Math.round(baseHeight * fixedScale);
+    // Wireframe CSS (inside SVG)
+    const svgInternalCss = `
+${css}
+.wf-page {
+  width: ${baseWidth}px;
+  height: ${baseHeight}px;
+  min-height: auto;
+  overflow: auto;
+  outline: ${outlineWidth}px solid ${borderColor};
+  outline-offset: 0;
+  border-radius: 0;
+  margin: ${outlineWidth}px;
+}
+`;
 
     return `<!DOCTYPE html>
 <html>
@@ -193,62 +199,30 @@ export class WireframePreviewPanel {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';">
   <style>
-    /* Core wireframe styles */
-    ${css}
-
-    /* Fixed viewport preview styles */
-    * {
-      box-sizing: border-box;
-    }
     html, body {
       margin: 0;
-      padding: 0;
-      background: ${bgColor};
-      color: ${textColor};
-    }
-    body {
       padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), var(--vscode-editor-background);
+      box-sizing: border-box;
     }
-    .wireframe-container {
-      display: flex;
-      justify-content: center;
-    }
-    .wireframe-scaler-wrapper {
-      position: relative;
-      width: ${scaledWidth}px;
-      height: ${scaledHeight}px;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .wireframe-scaler {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: ${baseWidth}px;
-      height: ${baseHeight}px;
-      transform: scale(${fixedScale});
-      transform-origin: top left;
-    }
-    /* Override core's min-height: 100vh */
-    .wf-page {
-      width: ${baseWidth}px;
-      height: ${baseHeight}px;
-      min-height: auto;
-      overflow: auto;
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="wireframe-container">
-    <div class="wireframe-scaler-wrapper">
-      <div class="wireframe-scaler">
+  <svg viewBox="0 0 ${baseWidth + outlineWidth * 2} ${baseHeight + outlineWidth * 2}" preserveAspectRatio="xMidYMid meet">
+    <style>${svgInternalCss}</style>
+    <foreignObject x="0" y="0" width="${baseWidth + outlineWidth * 2}" height="${baseHeight + outlineWidth * 2}">
+      <div xmlns="http://www.w3.org/1999/xhtml">
         ${html}
       </div>
-    </div>
-  </div>
+    </foreignObject>
+  </svg>
 </body>
 </html>`;
   }

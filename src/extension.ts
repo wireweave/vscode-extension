@@ -31,18 +31,25 @@ function escapeHtml(text: string): string {
 function renderWireframeToHtml(code: string): string {
   try {
     const doc = parse(code);
-    const { html, css } = render(doc, { theme: 'light', includeStyles: true });
+    const { html, css } = render(doc, { theme: 'light', includeStyles: true, background: 'transparent' });
 
     // Generate unique ID for CSS scoping
     const scopeId = `wf-${Math.random().toString(36).substring(2, 9)}`;
 
     // Get viewport from first page
-    const firstPage = doc.children[0];
-    const viewport = resolveViewport(firstPage?.viewport, firstPage?.device);
+    const firstPage = doc.children[0] as { width?: number; height?: number; viewport?: string; device?: string };
+    let baseWidth: number;
+    let baseHeight: number;
 
-    // Use viewport dimensions
-    const baseWidth = viewport.width;
-    const baseHeight = viewport.height;
+    // Check direct width/height attributes first, then viewport/device
+    if (firstPage?.width && firstPage?.height) {
+      baseWidth = firstPage.width;
+      baseHeight = firstPage.height;
+    } else {
+      const viewport = resolveViewport(firstPage?.viewport, firstPage?.device);
+      baseWidth = viewport.width;
+      baseHeight = viewport.height;
+    }
 
     // Scale settings for container sizing
     const maxScale = baseWidth > 800 ? 0.5 : 0.8;
@@ -132,12 +139,8 @@ export function activate(context: vscode.ExtensionContext) {
       WireframePreviewPanel.createOrShow(context.extensionUri, 'side');
     }),
 
-    vscode.commands.registerCommand('wireframe.exportSvg', () => {
-      exportToFile('svg');
-    }),
-
     vscode.commands.registerCommand('wireframe.exportHtml', () => {
-      exportToFile('html');
+      exportToFile();
     })
   );
 
@@ -219,9 +222,9 @@ interface MarkdownIt {
 }
 
 /**
- * Export the current wireframe to a file
+ * Export the current wireframe to HTML file
  */
-async function exportToFile(format: 'svg' | 'html') {
+async function exportToFile() {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor || editor.document.languageId !== 'wireframe') {
@@ -232,13 +235,13 @@ async function exportToFile(format: 'svg' | 'html') {
   // Get default file name
   const currentFileName = editor.document.fileName;
   const baseName = currentFileName.replace(/\.(wf|wireframe)$/, '');
-  const defaultFileName = `${baseName}.${format}`;
+  const defaultFileName = `${baseName}.html`;
 
   // Show save dialog
   const uri = await vscode.window.showSaveDialog({
     defaultUri: vscode.Uri.file(defaultFileName),
     filters: {
-      [format.toUpperCase()]: [format],
+      HTML: ['html'],
     },
   });
 
@@ -247,7 +250,7 @@ async function exportToFile(format: 'svg' | 'html') {
   }
 
   try {
-    const content = await WireframePreviewPanel.export(editor.document, format);
+    const content = await WireframePreviewPanel.export(editor.document);
     await vscode.workspace.fs.writeFile(uri, Buffer.from(content, 'utf8'));
     vscode.window.showInformationMessage(`Exported to ${uri.fsPath}`);
   } catch (error: unknown) {

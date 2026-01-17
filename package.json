@@ -4,7 +4,16 @@
   "description": "Text-based wireframe DSL - preview and edit wireframes as code",
   "version": "1.0.0",
   "publisher": "wireweave",
+  "license": "MIT",
   "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wireweave/vscode-extension"
+  },
+  "homepage": "https://wireweave.org",
+  "bugs": {
+    "url": "https://github.com/wireweave/vscode-extension/issues"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -59,10 +68,6 @@
         "icon": "$(open-preview)"
       },
       {
-        "command": "wireframe.exportSvg",
-        "title": "Wireframe: Export as SVG"
-      },
-      {
         "command": "wireframe.exportHtml",
         "title": "Wireframe: Export as HTML"
       }
@@ -82,10 +87,6 @@
         },
         {
           "command": "wireframe.previewToSide",
-          "when": "resourceLangId == wireframe"
-        },
-        {
-          "command": "wireframe.exportSvg",
           "when": "resourceLangId == wireframe"
         },
         {
@@ -135,7 +136,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@wireweave/core": "workspace:*"
+    "@wireweave/core": "^1.4.1",
+    "@wireweave/language-data": "^1.0.2"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
