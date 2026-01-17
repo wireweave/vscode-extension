@@ -120,14 +120,12 @@ Open Markdown preview (`Cmd+Shift+V`) to see the rendered wireframe.
 
 ## Learn More
 
-- [Wireweave Documentation](https://docs.wireweave.org)
-- [DSL Reference](https://docs.wireweave.org/reference)
-- [Examples](https://github.com/wireweave/examples)
+- [Documentation](https://docs.wireweave.org)
+- [Playground](https://playground.wireweave.org)
 
 ## Feedback & Issues
 
 - [GitHub Issues](https://github.com/wireweave/vscode-extension/issues)
-- [Feature Requests](https://github.com/wireweave/vscode-extension/discussions)
 
 ## License
 
