@@ -59,17 +59,17 @@
     "commands": [
       {
         "command": "wireframe.preview",
-        "title": "Wireframe: Open Preview",
+        "title": "Wireweave: Open Preview",
         "icon": "$(preview)"
       },
       {
         "command": "wireframe.previewToSide",
-        "title": "Wireframe: Open Preview to Side",
+        "title": "Wireweave: Open Preview to Side",
         "icon": "$(open-preview)"
       },
       {
         "command": "wireframe.exportHtml",
-        "title": "Wireframe: Export as HTML"
+        "title": "Wireweave: Export as HTML"
       }
     ],
     "menus": {
