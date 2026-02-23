@@ -19,9 +19,9 @@ Thumbs.db
 npm-debug.log*
 pnpm-debug.log*
 
-# Lock files (using pnpm)
-package-lock.json
+# Lock files
 yarn.lock
+pnpm-lock.yaml
 
 # Test output
 coverage/
