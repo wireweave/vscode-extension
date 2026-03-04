@@ -136,7 +136,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@wireweave/core": "^2.2.0",
+    "@wireweave/core": "^2.5.1",
     "@wireweave/language-data": "^1.4.5"
   },
   "devDependencies": {
