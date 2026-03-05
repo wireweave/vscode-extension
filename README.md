@@ -26,6 +26,9 @@
 
 - **Syntax Highlighting** - Full syntax highlighting for `.wf` and `.wireframe` files
 - **Live Preview** - Real-time preview as you type
+- **Auto-completion** - Smart suggestions for components, attributes, and values with snippets
+- **Hover Documentation** - View component and attribute documentation on hover
+- **Diagnostics** - Real-time error detection (unknown components, unmatched braces, etc.)
 - **Markdown Integration** - Embed wireframes in Markdown with ` ```wireframe ` code blocks
 - **Export Options** - Export wireframes as HTML
 - **Theme Support** - Auto-detects VS Code theme (light/dark)
@@ -121,7 +124,7 @@ Open Markdown preview (`Cmd+Shift+V`) to see the rendered wireframe.
 ## Learn More
 
 - [Documentation](https://docs.wireweave.org)
-- [Playground](https://playground.wireweave.org)
+- [Playground](https://wireweave.org)
 
 ## Feedback & Issues
 
