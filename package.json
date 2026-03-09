@@ -2,7 +2,7 @@
   "name": "wireweave-vscode",
   "displayName": "Wireweave",
   "description": "Text-based wireframe DSL - preview and edit wireframes as code",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "publisher": "wireweave",
   "license": "MIT",
   "icon": "icon.png",
@@ -136,8 +136,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@wireweave/core": "^2.5.1",
-    "@wireweave/language-data": "^1.4.5"
+    "@wireweave/core": "^2.6.0",
+    "@wireweave/language-data": "^1.5.0"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",
